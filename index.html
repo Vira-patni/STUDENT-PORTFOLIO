@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SkillForge — Student Skill Portfolio Builder</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap 5 CSS CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+  <!-- Bootstrap Icons CDN -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+  <!-- Custom Theme Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Ambient background glow gradients -->
+  <div class="ambient-glow"></div>
+
+  <div class="app-wrapper">
+    <!-- ==================== SIDEBAR ==================== -->
+    <aside class="app-sidebar" id="appSidebar">
+      <div class="sidebar-header">
+        <a href="#" class="brand-logo" data-view-target="dashboard">
+          <div class="brand-icon">
+            <i class="bi bi-mortarboard-fill"></i>
+          </div>
+          <span>SkillForge</span>
+        </a>
+        <span class="brand-badge">Hackathon</span>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-section-title">Main Menu</div>
+        <a href="#dashboard" class="sidebar-nav-link active" data-view="dashboard">
+          <i class="bi bi-speedometer2"></i>
+          <span>Dashboard</span>
+        </a>
+        <a href="#profile" class="sidebar-nav-link" data-view="profile">
+          <i class="bi bi-person-badge"></i>
+          <span>Student Profile</span>
+        </a>
+        <a href="#skills" class="sidebar-nav-link" data-view="skills">
+          <i class="bi bi-lightning-charge"></i>
+          <span>Skills Manager</span>
+        </a>
+        <a href="#projects" class="sidebar-nav-link" data-view="projects">
+          <i class="bi bi-folder2-open"></i>
+          <span>Projects Showcase</span>
+        </a>
+        <a href="#certifications" class="sidebar-nav-link" data-view="certifications">
+          <i class="bi bi-patch-check"></i>
+          <span>Certifications</span>
+        </a>
+        <a href="#achievements" class="sidebar-nav-link" data-view="achievements">
+          <i class="bi bi-trophy"></i>
+          <span>Achievements</span>
+        </a>
+
+        <div class="nav-section-title mt-3">Visuals & Showcase</div>
+        <a href="#analytics" class="sidebar-nav-link" data-view="analytics">
+          <i class="bi bi-pie-chart"></i>
+          <span>Skill Analytics</span>
+        </a>
+        <a href="#portfolio" class="sidebar-nav-link" data-view="portfolio">
+          <i class="bi bi-eye"></i>
+          <span>Live Portfolio</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="sidebar-profile-snippet" data-view-target="profile" title="Click to view/edit profile">
+          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80" alt="Avatar" class="avatar-sm" id="sidebarAvatar" onerror="this.onerror=null;this.src='assets/images/avatar.svg';">
+          <div class="overflow-hidden">
+            <div class="sidebar-profile-name text-truncate" id="sidebarStudentName">Alex Rivera</div>
+            <div class="sidebar-profile-role text-truncate" id="sidebarStudentRole">CS Undergraduate</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ==================== MAIN CONTENT ==================== -->
+    <main class="app-main">
+      <!-- Topbar Header -->
+      <header class="app-topbar">
+        <div class="topbar-left">
+          <button type="button" class="mobile-nav-toggle" id="mobileNavToggle" aria-label="Toggle navigation">
+            <i class="bi bi-list"></i>
+          </button>
+          <h1 class="page-title" id="topbarPageTitle">Dashboard Overview</h1>
+        </div>
+
+        <div class="topbar-right">
+          <!-- Load Demo Data Button -->
+          <button type="button" class="btn btn-sm btn-glass d-none d-sm-inline-flex" id="loadDemoDataBtn" title="Load sample portfolio dataset">
+            <i class="bi bi-lightning-fill text-warning"></i> Load Demo
+          </button>
+          <!-- Reset Application Button -->
+          <button type="button" class="btn btn-sm btn-glass d-none d-sm-inline-flex text-danger" id="resetDataBtn" title="Reset all portfolio data">
+            <i class="bi bi-arrow-counterclockwise"></i> Reset
+          </button>
+          <!-- Dark / Light Theme Toggle -->
+          <button type="button" class="btn-icon-square" id="themeToggleBtn" title="Toggle Theme" aria-label="Toggle Dark / Light theme">
+            <i class="bi bi-sun-fill text-warning" id="themeToggleIcon"></i>
+          </button>
+          <!-- Preview Portfolio Quick Pill -->
+          <button type="button" class="btn btn-sm btn-gradient" data-view-target="portfolio">
+            <i class="bi bi-eye-fill"></i> <span class="d-none d-md-inline">Live Preview</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- View Containers -->
+      <div class="content-body">
+        
+        <!-- 1. DASHBOARD VIEW -->
+        <section id="view-dashboard" class="view-section active">
+          <!-- Welcome Banner -->
+          <div class="completion-banner mb-4">
+            <div class="row align-items-center">
+              <div class="col-lg-8">
+                <div class="d-flex align-items-center gap-2 mb-2">
+                  <span class="badge badge-soft-purple px-2 py-1"><i class="bi bi-stars"></i> Portfolio Builder</span>
+                  <span class="text-muted small">Academic Year 2024-2027</span>
+                </div>
+                <h2 class="fw-bold mb-2 text-white">Welcome back, <span id="dashboardWelcomeName" class="text-gradient">Alex</span>!</h2>
+                <p class="text-secondary mb-3">Your student portfolio is continuously updated. Track technical proficiencies, showcase hackathon projects, and generate professional CV exports effortlessly.</p>
+                
+                <div class="d-flex flex-wrap gap-2">
+                  <button type="button" class="btn btn-gradient btn-sm" data-bs-toggle="modal" data-bs-target="#skillModal">
+                    <i class="bi bi-plus-lg"></i> Add Skill
+                  </button>
+                  <button type="button" class="btn btn-glass btn-sm" data-bs-toggle="modal" data-bs-target="#projectModal">
+                    <i class="bi bi-folder-plus"></i> New Project
+                  </button>
+                  <button type="button" class="btn btn-glass btn-sm" data-view-target="portfolio">
+                    <i class="bi bi-printer"></i> Export / Print CV
+                  </button>
+                </div>
+              </div>
+
+              <!-- Completion Score Gauge -->
+              <div class="col-lg-4 mt-4 mt-lg-0">
+                <div class="glass-panel p-3">
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span class="fw-bold text-white small">Portfolio Completeness</span>
+                    <span class="stat-value text-gradient fs-4" id="portfolioCompletionPct">90%</span>
+                  </div>
+                  <div class="progress-custom mb-3">
+                    <div class="progress-bar-gradient h-100" id="portfolioCompletionBar" style="width: 90%;"></div>
+                  </div>
+                  <div class="completion-checklist" id="portfolioCompletionChecklist">
+                    <!-- Dynamic Checklist Items inserted by storage.js -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 4 Main Statistics Cards -->
+          <div class="row g-3 mb-4">
+            <div class="col-sm-6 col-xl-3">
+              <div class="glass-card stat-card">
+                <div class="stat-icon-wrapper stat-icon-purple">
+                  <i class="bi bi-lightning-charge-fill"></i>
+                </div>
+                <div>
+                  <div class="stat-value" id="statTotalSkills">11</div>
+                  <div class="stat-label">Technical Skills</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-sm-6 col-xl-3">
+              <div class="glass-card stat-card">
+                <div class="stat-icon-wrapper stat-icon-blue">
+                  <i class="bi bi-folder-fill"></i>
+                </div>
+                <div>
+                  <div class="stat-value" id="statTotalProjects">3</div>
+                  <div class="stat-label">Showcase Projects</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-sm-6 col-xl-3">
+              <div class="glass-card stat-card">
+                <div class="stat-icon-wrapper stat-icon-emerald">
+                  <i class="bi bi-patch-check-fill"></i>
+                </div>
+                <div>
+                  <div class="stat-value" id="statTotalCerts">3</div>
+                  <div class="stat-label">Certifications</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-sm-6 col-xl-3">
+              <div class="glass-card stat-card">
+                <div class="stat-icon-wrapper stat-icon-amber">
+                  <i class="bi bi-trophy-fill"></i>
+                </div>
+                <div>
+                  <div class="stat-value" id="statTotalAchievements">3</div>
+                  <div class="stat-label">Achievements</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dashboard Row: Recent Projects & Skill Category Distribution Chart -->
+          <div class="row g-4">
+            <!-- Left: Recent Projects -->
+            <div class="col-lg-7">
+              <div class="glass-panel p-4 h-100">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <h5 class="fw-bold text-white mb-0"><i class="bi bi-folder-check text-primary me-2"></i>Recent Projects</h5>
+                  <button type="button" class="btn btn-sm btn-glass" data-view-target="projects">View All</button>
+                </div>
+                <div id="dashboardRecentProjects">
+                  <!-- Injected via app.js -->
+                </div>
+              </div>
+            </div>
+
+            <!-- Right: Skills Overview & Category Mini Chart -->
+            <div class="col-lg-5">
+              <div class="glass-panel p-4 h-100">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <h5 class="fw-bold text-white mb-0"><i class="bi bi-pie-chart-fill text-info me-2"></i>Skills Breakdown</h5>
+                  <button type="button" class="btn btn-sm btn-glass" data-view-target="analytics">Analytics</button>
+                </div>
+                <div class="chart-box" style="min-height: 200px; max-height: 200px;">
+                  <canvas id="dashboardCategoryMiniChart"></canvas>
+                </div>
+                <div class="mt-4 pt-2 border-top border-secondary border-opacity-10">
+                  <h6 class="fw-bold text-white small mb-3">Top Competencies</h6>
+                  <div id="dashboardRecentSkills">
+                    <!-- Injected via app.js -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 2. PROFILE VIEW -->
+        <section id="view-profile" class="view-section">
+          <div class="row g-4">
+            <!-- Form Column -->
+            <div class="col-lg-8">
+              <div class="glass-panel p-4">
+                <div class="d-flex align-items-center justify-content-between mb-4 pb-2 border-bottom border-secondary border-opacity-10">
+                  <div>
+                    <h4 class="fw-bold text-white mb-1">Student Profile</h4>
+                    <p class="text-secondary small mb-0">Manage personal details, academic background, and external contact links.</p>
+                  </div>
+                  <span class="badge badge-soft-purple px-2 py-1">Auto-Saved</span>
+                </div>
+
+                <form id="profileForm" novalidate>
+                  <div class="row g-3">
+                    <!-- Full Name -->
+                    <div class="col-md-6">
+                      <label for="profileNameInput" class="form-label">Full Name <span class="text-danger">*</span></label>
+                      <input type="text" class="form-control" id="profileNameInput" placeholder="e.g. Alex Rivera" required>
+                      <div class="invalid-feedback"></div>
+                    </div>
+
+                    <!-- Professional Headline -->
+                    <div class="col-md-6">
+                      <label for="profileHeadlineInput" class="form-label">Professional Headline <span class="text-danger">*</span></label>
+                      <input type="text" class="form-control" id="profileHeadlineInput" placeholder="e.g. Aspiring Full-Stack Developer & AI Enthusiast" required>
+                      <div class="invalid-feedback"></div>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="col-md-6">
+                      <label for="profileEmailInput" class="form-label">Email Address <span class="text-danger">*</span></label>
+                      <input type="email" class="form-control" id="profileEmailInput" placeholder="student@university.edu" required>
+                      <div class="invalid-feedback"></div>
+                    </div>
+
+                    <!-- College / University -->
+                    <div class="col-md-6">
+                      <label for="profileCollegeInput" class="form-label">College / University <span class="text-danger">*</span></label>
+                      <input type="text" class="form-control" id="profileCollegeInput" placeholder="Institute of Technology" required>
+                      <div class="invalid-feedback"></div>
+                    </div>
+
+                    <!-- Course / Degree -->
+                    <div class="col-md-6">
+                      <label for="profileCourseInput" class="form-label">Course / Degree</label>
+                      <input type="text" class="form-control" id="profileCourseInput" placeholder="B.Tech in Computer Science">
+                    </div>
+
+                    <!-- Graduation Year / Semester -->
+                    <div class="col-md-6">
+                      <label for="profileYearInput" class="form-label">Year / Semester</label>
+                      <input type="text" class="form-control" id="profileYearInput" placeholder="3rd Year (Class of 2027)">
+                    </div>
+
+                    <!-- Short Bio -->
+                    <div class="col-12">
+                      <label for="profileBioInput" class="form-label">Professional Bio & About Me</label>
+                      <textarea class="form-control" id="profileBioInput" rows="4" placeholder="Brief summary of your academic background, technical focus, and aspirations..."></textarea>
+                    </div>
+
+                    <!-- GitHub URL -->
+                    <div class="col-md-6">
+                      <label for="profileGithubInput" class="form-label"><i class="bi bi-github me-1"></i> GitHub Profile URL</label>
+                      <input type="url" class="form-control" id="profileGithubInput" placeholder="https://github.com/username">
+                      <div class="invalid-feedback"></div>
+                    </div>
+
+                    <!-- LinkedIn URL -->
+                    <div class="col-md-6">
+                      <label for="profileLinkedinInput" class="form-label"><i class="bi bi-linkedin me-1 text-primary"></i> LinkedIn Profile URL</label>
+                      <input type="url" class="form-control" id="profileLinkedinInput" placeholder="https://linkedin.com/in/username">
+                      <div class="invalid-feedback"></div>
+                    </div>
+
+                    <!-- Avatar Image URL -->
+                    <div class="col-12">
+                      <label for="profileAvatarInput" class="form-label"><i class="bi bi-image me-1"></i> Profile Image URL (Direct Link)</label>
+                      <input type="url" class="form-control" id="profileAvatarInput" placeholder="https://example.com/photo.jpg">
+                      <div class="invalid-feedback"></div>
+                      <div class="form-text text-muted small">Paste an image link or leave blank to use the default student avatar.</div>
+                    </div>
+                  </div>
+
+                  <div class="mt-4 pt-3 border-top border-secondary border-opacity-10 d-flex justify-content-end">
+                    <button type="submit" class="btn btn-gradient">
+                      <i class="bi bi-check2-circle"></i> Save Changes
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+            <!-- Profile Preview Card Column -->
+            <div class="col-lg-4">
+              <div class="glass-panel p-4 text-center sticky-top" style="top: 90px;">
+                <div class="mb-3 position-relative d-inline-block">
+                  <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80" alt="Avatar Preview" class="rounded-circle shadow-lg" id="profileAvatarPreview" onerror="this.onerror=null;this.src='assets/images/avatar.svg';" style="width: 120px; height: 120px; object-fit: cover; border: 3px solid var(--accent-purple);">
+                </div>
+                <h5 class="fw-bold text-white mb-1">Live Identity Preview</h5>
+                <p class="text-muted small mb-4">This profile information syncs automatically across your dashboard and live public portfolio.</p>
+                <div class="d-grid gap-2">
+                  <button type="button" class="btn btn-glass btn-sm" data-view-target="portfolio">
+                    <i class="bi bi-eye"></i> View Live Portfolio
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 3. SKILLS MANAGER VIEW -->
+        <section id="view-skills" class="view-section">
+          <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+            <div>
+              <h4 class="fw-bold text-white mb-1">Technical Skills Manager</h4>
+              <p class="text-secondary small mb-0">Categorize your competencies across programming languages, web stacks, databases, and tools.</p>
+            </div>
+            <button type="button" class="btn btn-gradient" data-bs-toggle="modal" data-bs-target="#skillModal">
+              <i class="bi bi-plus-lg"></i> Add Technical Skill
+            </button>
+          </div>
+
+          <!-- Category Filter Pills Container -->
+          <div class="glass-panel p-3 mb-4">
+            <div class="d-flex flex-wrap align-items-center gap-2" id="skillFilterPills">
+              <!-- Filter buttons populated via skills.js & data/skills.json -->
+            </div>
+          </div>
+
+          <!-- Suggestion Pill Cloud -->
+          <div class="glass-card p-3 mb-4">
+            <div class="d-flex align-items-center gap-2 mb-2">
+              <i class="bi bi-magic text-warning"></i>
+              <span class="fw-bold text-white small">Quick Suggestions (Click to Add):</span>
+            </div>
+            <div class="d-flex flex-wrap gap-2" id="skillSuggestionsContainer">
+              <!-- Populated via skills.js -->
+            </div>
+          </div>
+
+          <!-- Skills Grid Container -->
+          <div class="row g-3" id="skillsListContainer">
+            <!-- Dynamic skill cards injected here -->
+          </div>
+
+          <!-- Skills Empty State -->
+          <div class="empty-state d-none mt-4" id="skillsEmptyState">
+            <i class="bi bi-lightning-charge empty-state-icon"></i>
+            <h5 class="empty-state-title">No Technical Skills Found</h5>
+            <p class="empty-state-desc">You haven't added any skills in this category yet. Click below or pick from suggestions to get started.</p>
+            <button type="button" class="btn btn-gradient" data-bs-toggle="modal" data-bs-target="#skillModal">
+              <i class="bi bi-plus-lg"></i> Add Your First Skill
+            </button>
+          </div>
+        </section>
+
+        <!-- 4. PROJECTS MANAGER VIEW -->
+        <section id="view-projects" class="view-section">
+          <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+            <div>
+              <h4 class="fw-bold text-white mb-1">Projects Showcase</h4>
+              <p class="text-secondary small mb-0">Highlight your hackathon creations, coursework projects, and open-source contributions.</p>
+            </div>
+            <div class="d-flex gap-2">
+              <button type="button" class="btn btn-glass" data-bs-toggle="modal" data-bs-target="#projectTemplatesModal">
+                <i class="bi bi-collection"></i> Browse Templates
+              </button>
+              <button type="button" class="btn btn-gradient" data-bs-toggle="modal" data-bs-target="#projectModal">
+                <i class="bi bi-plus-lg"></i> Add Project
+              </button>
+            </div>
+          </div>
+
+          <!-- Project Filter and Search Bar -->
+          <div class="glass-panel p-3 mb-4">
+            <div class="row g-3 align-items-center">
+              <div class="col-md-5">
+                <div class="input-group">
+                  <span class="input-group-text bg-transparent border-end-0" style="border-color: var(--border-color); color: var(--text-muted);"><i class="bi bi-search"></i></span>
+                  <input type="text" class="form-control border-start-0" id="projectSearchInput" placeholder="Search projects by title, description, or tech...">
+                </div>
+              </div>
+              <div class="col-sm-6 col-md-3">
+                <select class="form-select" id="projectCategoryFilter">
+                  <option value="all">All Categories</option>
+                  <option value="Web Development">Web Development</option>
+                  <option value="Tools">Tools & DevOps</option>
+                  <option value="Mobile">Mobile Apps</option>
+                  <option value="AI/ML">AI & Machine Learning</option>
+                  <option value="Other">Other Projects</option>
+                </select>
+              </div>
+              <div class="col-sm-6 col-md-4">
+                <select class="form-select" id="projectStatusFilter">
+                  <option value="all">All Statuses</option>
+                  <option value="Completed">Completed</option>
+                  <option value="In Progress">In Progress</option>
+                  <option value="Planned">Planned</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Projects Grid Container -->
+          <div class="row" id="projectsListContainer">
+            <!-- Dynamic project cards injected here -->
+          </div>
+
+          <!-- Projects Empty State -->
+          <div class="empty-state d-none mt-4" id="projectsEmptyState">
+            <i class="bi bi-folder2-open empty-state-icon"></i>
+            <h5 class="empty-state-title">No Projects Found</h5>
+            <p class="empty-state-desc">No projects match your search criteria. Add a new project or select from prebuilt templates!</p>
+            <div class="d-flex justify-content-center gap-2">
+              <button type="button" class="btn btn-glass" data-bs-toggle="modal" data-bs-target="#projectTemplatesModal">
+                <i class="bi bi-collection"></i> Use a Template
+              </button>
+              <button type="button" class="btn btn-gradient" data-bs-toggle="modal" data-bs-target="#projectModal">
+                <i class="bi bi-plus-lg"></i> Add Project
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- 5. CERTIFICATIONS VIEW -->
+        <section id="view-certifications" class="view-section">
+          <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+            <div>
+              <h4 class="fw-bold text-white mb-1">Certifications & Credentials</h4>
+              <p class="text-secondary small mb-0">Record verified industry certifications, completed online specializations, and digital badges.</p>
+            </div>
+            <button type="button" class="btn btn-gradient" data-bs-toggle="modal" data-bs-target="#certModal">
+              <i class="bi bi-plus-lg"></i> Add Certification
+            </button>
+          </div>
+
+          <!-- Certifications Grid -->
+          <div class="row" id="certsListContainer">
+            <!-- Dynamic certification cards injected here -->
+          </div>
+
+          <!-- Certifications Empty State -->
+          <div class="empty-state d-none mt-4" id="certsEmptyState">
+            <i class="bi bi-patch-check empty-state-icon"></i>
+            <h5 class="empty-state-title">No Certifications Recorded</h5>
+            <p class="empty-state-desc">Add cloud certifications, online courses, or programming diplomas to bolster your portfolio.</p>
+            <button type="button" class="btn btn-gradient" data-bs-toggle="modal" data-bs-target="#certModal">
+              <i class="bi bi-plus-lg"></i> Add Certification
+            </button>
+          </div>
+        </section>
+
+        <!-- 6. ACHIEVEMENTS VIEW -->
+        <section id="view-achievements" class="view-section">
+          <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+            <div>
+              <h4 class="fw-bold text-white mb-1">Honors & Achievements</h4>
+              <p class="text-secondary small mb-0">Celebrate hackathon podiums, academic scholarships, open-source milestones, and student leadership roles.</p>
+            </div>
+            <button type="button" class="btn btn-gradient" data-bs-toggle="modal" data-bs-target="#achievementModal">
+              <i class="bi bi-plus-lg"></i> Add Achievement
+            </button>
+          </div>
+
+          <!-- Achievements Grid -->
+          <div class="row" id="achievementsListContainer">
+            <!-- Dynamic achievement cards injected here -->
+          </div>
+
+          <!-- Achievements Empty State -->
+          <div class="empty-state d-none mt-4" id="achievementsEmptyState">
+            <i class="bi bi-trophy empty-state-icon"></i>
+            <h5 class="empty-state-title">No Achievements Added</h5>
+            <p class="empty-state-desc">Showcase your hackathon wins, club leadership positions, or competitive programming milestones.</p>
+            <button type="button" class="btn btn-gradient" data-bs-toggle="modal" data-bs-target="#achievementModal">
+              <i class="bi bi-plus-lg"></i> Add Achievement
+            </button>
+          </div>
+        </section>
+
+        <!-- 7. ANALYTICS VIEW -->
+        <section id="view-analytics" class="view-section">
+          <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+            <div>
+              <h4 class="fw-bold text-white mb-1">Skill Analytics & Visualization</h4>
+              <p class="text-secondary small mb-0">Interactive visual breakdown of competencies across technical domains and proficiency levels.</p>
+            </div>
+          </div>
+
+          <!-- Content Container -->
+          <div id="analyticsContent">
+            <!-- Charts Row 1 -->
+            <div class="row g-4 mb-4">
+              <!-- Doughnut Chart: Categories -->
+              <div class="col-lg-6">
+                <div class="glass-panel p-4 h-100">
+                  <h5 class="fw-bold text-white mb-1"><i class="bi bi-pie-chart text-primary me-2"></i>Skills Distribution by Category</h5>
+                  <p class="text-muted small mb-3">Relative percentage breakdown of all skills in your portfolio.</p>
+                  <div class="chart-box">
+                    <canvas id="categoryDoughnutChart"></canvas>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Bar Chart: Category Counts -->
+              <div class="col-lg-6">
+                <div class="glass-panel p-4 h-100">
+                  <h5 class="fw-bold text-white mb-1"><i class="bi bi-bar-chart-fill text-info me-2"></i>Skills Count by Category</h5>
+                  <p class="text-muted small mb-3">Total number of verified skills in each technical domain.</p>
+                  <div class="chart-box">
+                    <canvas id="categoryBarChart"></canvas>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Charts Row 2 -->
+            <div class="row g-4 mb-4">
+              <!-- Horizontal Bar Chart: Proficiency Distribution -->
+              <div class="col-lg-6">
+                <div class="glass-panel p-4 h-100">
+                  <h5 class="fw-bold text-white mb-1"><i class="bi bi-sliders text-warning me-2"></i>Proficiency Distribution</h5>
+                  <p class="text-muted small mb-3">Proficiency levels across all registered skills.</p>
+                  <div class="chart-box">
+                    <canvas id="proficiencyBarChart"></canvas>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Skill Matrix Summary Table -->
+              <div class="col-lg-6">
+                <div class="glass-panel p-4 h-100">
+                  <h5 class="fw-bold text-white mb-1"><i class="bi bi-table text-success me-2"></i>Skills Matrix Summary</h5>
+                  <p class="text-muted small mb-3">Tabular registry of your technical proficiencies.</p>
+                  <div class="table-responsive" style="max-height: 280px; overflow-y: auto;">
+                    <table class="table table-dark table-borderless table-striped align-middle mb-0">
+                      <thead>
+                        <tr class="border-bottom border-secondary border-opacity-25 small text-muted">
+                          <th>SKILL</th>
+                          <th>CATEGORY</th>
+                          <th>PROFICIENCY</th>
+                        </tr>
+                      </thead>
+                      <tbody id="skillMatrixTableBody" class="small">
+                        <!-- Populated via analytics.js -->
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Analytics Empty State -->
+          <div class="empty-state d-none mt-4" id="analyticsEmptyState">
+            <i class="bi bi-pie-chart empty-state-icon"></i>
+            <h5 class="empty-state-title">No Analytics Available</h5>
+            <p class="empty-state-desc">Add at least one technical skill to generate Chart.js visualizations and category distribution graphs.</p>
+            <button type="button" class="btn btn-gradient" data-view-target="skills">
+              <i class="bi bi-plus-lg"></i> Go to Skills Manager
+            </button>
+          </div>
+        </section>
+
+        <!-- 8. LIVE PORTFOLIO PREVIEW VIEW -->
+        <section id="view-portfolio" class="view-section">
+          <!-- Top Controls (Hidden in print) -->
+          <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4 no-print">
+            <div>
+              <h4 class="fw-bold text-white mb-1">Live Portfolio Preview</h4>
+              <p class="text-secondary small mb-0">This view reflects your live public portfolio. Ready for recruiter review and clean PDF export.</p>
+            </div>
+            <div class="d-flex gap-2">
+              <button type="button" class="btn btn-gradient" id="printPortfolioBtn">
+                <i class="bi bi-printer-fill"></i> Print / Save as PDF
+              </button>
+            </div>
+          </div>
+
+          <!-- Portfolio Document Canvas -->
+          <div class="portfolio-preview-wrapper">
+            <!-- Hero / Bio Banner -->
+            <div class="portfolio-hero">
+              <img src="" alt="Student Avatar" class="portfolio-avatar" id="previewAvatar">
+              <div>
+                <h1 class="portfolio-name" id="previewName">Student Name</h1>
+                <div class="portfolio-headline" id="previewHeadline">Headline</div>
+                <div class="portfolio-meta-pills mb-2">
+                  <span id="previewCollege"></span>
+                  <span id="previewCourse"></span>
+                </div>
+                <p class="text-secondary small mb-3" id="previewBio"></p>
+                <div class="portfolio-social-links">
+                  <a href="#" target="_blank" class="project-link-btn" id="previewEmail"><i class="bi bi-envelope-fill"></i> Email</a>
+                  <a href="#" target="_blank" class="project-link-btn" id="previewGithub"><i class="bi bi-github"></i> GitHub</a>
+                  <a href="#" target="_blank" class="project-link-btn" id="previewLinkedin"><i class="bi bi-linkedin"></i> LinkedIn</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Technical Skills Section -->
+            <div class="mb-5">
+              <h4 class="portfolio-section-title"><i class="bi bi-lightning-charge-fill"></i> Technical Competencies</h4>
+              <div class="row" id="previewSkillsContainer">
+                <!-- Injected via portfolio.js -->
+              </div>
+            </div>
+
+            <!-- Featured Projects Section -->
+            <div class="mb-5">
+              <h4 class="portfolio-section-title"><i class="bi bi-folder-fill"></i> Featured Projects</h4>
+              <div class="row" id="previewProjectsContainer">
+                <!-- Injected via portfolio.js -->
+              </div>
+            </div>
+
+            <!-- Certifications Section -->
+            <div class="mb-5">
+              <h4 class="portfolio-section-title"><i class="bi bi-patch-check-fill"></i> Certifications & Credentials</h4>
+              <div class="row" id="previewCertsContainer">
+                <!-- Injected via portfolio.js -->
+              </div>
+            </div>
+
+            <!-- Achievements Section -->
+            <div>
+              <h4 class="portfolio-section-title"><i class="bi bi-trophy-fill"></i> Honors & Achievements</h4>
+              <div class="row" id="previewAchievementsContainer">
+                <!-- Injected via portfolio.js -->
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- ==================== MODALS ==================== -->
+
+  <!-- 1. Add / Edit Skill Modal -->
+  <div class="modal fade" id="skillModal" tabindex="-1" aria-labelledby="skillModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content glass-modal">
+        <div class="modal-header">
+          <h5 class="modal-title fw-bold text-white" id="skillModalTitle">Add Technical Skill</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form id="skillForm" novalidate>
+          <div class="modal-body">
+            <div class="mb-3">
+              <label for="skillNameInput" class="form-label">Skill Name <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" id="skillNameInput" placeholder="e.g. React.js, Python, PostgreSQL" required>
+              <div class="invalid-feedback"></div>
+            </div>
+
+            <div class="mb-3">
+              <label for="skillCategoryInput" class="form-label">Skill Category <span class="text-danger">*</span></label>
+              <select class="form-select" id="skillCategoryInput" required>
+                <!-- Populated via skills.js & data/skills.json -->
+              </select>
+              <div class="invalid-feedback"></div>
+            </div>
+
+            <div class="mb-3">
+              <label for="skillProficiencyInput" class="form-label">Proficiency Level <span class="text-danger">*</span></label>
+              <select class="form-select" id="skillProficiencyInput" required>
+                <option value="">Choose Level</option>
+                <option value="Beginner">Beginner (25%)</option>
+                <option value="Intermediate" selected>Intermediate (50%)</option>
+                <option value="Advanced">Advanced (75%)</option>
+                <option value="Expert">Expert (100%)</option>
+              </select>
+              <div class="invalid-feedback"></div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-glass" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-gradient">Save Skill</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Add / Edit Project Modal -->
+  <div class="modal fade" id="projectModal" tabindex="-1" aria-labelledby="projectModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content glass-modal">
+        <div class="modal-header">
+          <h5 class="modal-title fw-bold text-white" id="projectModalTitle">Add Project</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form id="projectForm" novalidate>
+          <div class="modal-body">
+            <div class="row g-3">
+              <div class="col-md-8">
+                <label for="projectTitleInput" class="form-label">Project Title <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="projectTitleInput" placeholder="e.g. AI Resume Analyzer" required>
+                <div class="invalid-feedback"></div>
+              </div>
+
+              <div class="col-md-4">
+                <label for="projectCategoryInput" class="form-label">Category <span class="text-danger">*</span></label>
+                <select class="form-select" id="projectCategoryInput" required>
+                  <option value="">Select Category</option>
+                  <option value="Web Development">Web Development</option>
+                  <option value="Tools">Tools & DevOps</option>
+                  <option value="Mobile">Mobile Apps</option>
+                  <option value="AI/ML">AI & Machine Learning</option>
+                  <option value="Other">Other</option>
+                </select>
+                <div class="invalid-feedback"></div>
+              </div>
+
+              <div class="col-md-6">
+                <label for="projectStatusInput" class="form-label">Project Status <span class="text-danger">*</span></label>
+                <select class="form-select" id="projectStatusInput" required>
+                  <option value="Completed">Completed</option>
+                  <option value="In Progress">In Progress</option>
+                  <option value="Planned">Planned</option>
+                </select>
+                <div class="invalid-feedback"></div>
+              </div>
+
+              <div class="col-md-6">
+                <label for="projectTechInput" class="form-label">Technologies Used <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="projectTechInput" placeholder="Comma-separated: Python, Flask, React" required>
+                <div class="invalid-feedback"></div>
+              </div>
+
+              <div class="col-md-6">
+                <label for="projectGithubInput" class="form-label"><i class="bi bi-github me-1"></i> GitHub Repository URL</label>
+                <input type="url" class="form-control" id="projectGithubInput" placeholder="https://github.com/username/project">
+                <div class="invalid-feedback"></div>
+              </div>
+
+              <div class="col-md-6">
+                <label for="projectLiveInput" class="form-label"><i class="bi bi-box-arrow-up-right me-1"></i> Live Demo URL</label>
+                <input type="url" class="form-control" id="projectLiveInput" placeholder="https://project-demo.com">
+                <div class="invalid-feedback"></div>
+              </div>
+
+              <div class="col-12">
+                <label for="projectDescInput" class="form-label">Project Description <span class="text-danger">*</span></label>
+                <textarea class="form-control" id="projectDescInput" rows="3" placeholder="Explain what the project solves, key features, and your individual contribution..." required></textarea>
+                <div class="invalid-feedback"></div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-glass" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-gradient">Save Project</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. Project Templates Modal -->
+  <div class="modal fade" id="projectTemplatesModal" tabindex="-1" aria-labelledby="projectTemplatesModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
+      <div class="modal-content glass-modal">
+        <div class="modal-header">
+          <div>
+            <h5 class="modal-title fw-bold text-white" id="projectTemplatesModalTitle">Curated Project Templates</h5>
+            <p class="text-muted small mb-0">Select any template to instantly prefill your project details.</p>
+          </div>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row" id="templatesListContainer">
+            <!-- Injected via projects.js from data/projects.json -->
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-glass" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. Add / Edit Certification Modal -->
+  <div class="modal fade" id="certModal" tabindex="-1" aria-labelledby="certModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content glass-modal">
+        <div class="modal-header">
+          <h5 class="modal-title fw-bold text-white" id="certModalTitle">Add Certification</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form id="certForm" novalidate>
+          <div class="modal-body">
+            <div class="mb-3">
+              <label for="certNameInput" class="form-label">Certification Name <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" id="certNameInput" placeholder="e.g. AWS Certified Cloud Practitioner" required>
+              <div class="invalid-feedback"></div>
+            </div>
+
+            <div class="mb-3">
+              <label for="certOrgInput" class="form-label">Issuing Organization <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" id="certOrgInput" placeholder="e.g. Amazon Web Services, Meta, Coursera" required>
+              <div class="invalid-feedback"></div>
+            </div>
+
+            <div class="mb-3">
+              <label for="certDateInput" class="form-label">Issue Date</label>
+              <input type="date" class="form-control" id="certDateInput">
+              <div class="invalid-feedback"></div>
+            </div>
+
+            <div class="mb-3">
+              <label for="certUrlInput" class="form-label">Credential Verification URL</label>
+              <input type="url" class="form-control" id="certUrlInput" placeholder="https://coursera.org/verify/id">
+              <div class="invalid-feedback"></div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-glass" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-gradient">Save Certification</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. Add / Edit Achievement Modal -->
+  <div class="modal fade" id="achievementModal" tabindex="-1" aria-labelledby="achievementModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content glass-modal">
+        <div class="modal-header">
+          <h5 class="modal-title fw-bold text-white" id="achievementModalTitle">Add Achievement</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form id="achievementForm" novalidate>
+          <div class="modal-body">
+            <div class="mb-3">
+              <label for="achievementTitleInput" class="form-label">Achievement Title <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" id="achievementTitleInput" placeholder="e.g. 1st Place Winner - Hackathon 2024" required>
+              <div class="invalid-feedback"></div>
+            </div>
+
+            <div class="mb-3">
+              <label for="achievementOrgInput" class="form-label">Issuing Organization / Event <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" id="achievementOrgInput" placeholder="e.g. ACM Student Chapter, University Tech Fest" required>
+              <div class="invalid-feedback"></div>
+            </div>
+
+            <div class="mb-3">
+              <label for="achievementDateInput" class="form-label">Date Received</label>
+              <input type="date" class="form-control" id="achievementDateInput">
+              <div class="invalid-feedback"></div>
+            </div>
+
+            <div class="mb-3">
+              <label for="achievementDescInput" class="form-label">Short Description</label>
+              <textarea class="form-control" id="achievementDescInput" rows="3" placeholder="Briefly explain the milestone, scope, and recognition..."></textarea>
+              <div class="invalid-feedback"></div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-glass" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-gradient">Save Achievement</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div class="toast-container-custom" id="toastContainer"></div>
+
+  <!-- Bootstrap 5 Bundle JS CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+
+  <!-- SkillForge JavaScript Modules -->
+  <script src="js/storage.js"></script>
+  <script src="js/validation.js"></script>
+  <script src="js/skills.js"></script>
+  <script src="js/projects.js"></script>
+  <script src="js/analytics.js"></script>
+  <script src="js/portfolio.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
